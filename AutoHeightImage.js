@@ -1,14 +1,15 @@
+import PropTypes from 'prop-types';
 /**
  * @since 2017-04-11 19:10:08
  * @author vivaxy
  */
-import React, { useEffect, useState, useRef } from 'react';
-import ImagePolyfill from './ImagePolyfill';
-import AnimatableImage from './AnimatableImage';
-import PropTypes from 'prop-types';
+import React, { useEffect, useRef, useState } from 'react';
+import FastImage from 'react-native-fast-image'
 
+import AnimatableImage from './AnimatableImage';
 import { getImageSizeFitWidth, getImageSizeFitWidthFromCache } from './cache';
-import { NOOP, DEFAULT_HEIGHT } from './helpers';
+import { DEFAULT_HEIGHT, NOOP } from './helpers';
+import ImagePolyfill from './ImagePolyfill';
 
 // remove `resizeMode` props from `Image.propTypes`
 const { resizeMode, ...ImagePropTypes } = AnimatableImage.propTypes;
@@ -65,7 +66,7 @@ function AutoHeightImage(props) {
   // Since it only makes sense to use polyfill with remote images
   const ImageComponent = source.uri ? ImagePolyfill : AnimatableImage;
   return (
-    <ImageComponent
+    <FastImage
       source={source}
       style={[imageStyles, style]}
       onError={onError}
